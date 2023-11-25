@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Your Page Title</title>
+    <style>
+        body {
+            background-color: #2b2a2a;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .inputField, select {
+            padding: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: white;
+            color: black;
+        }
+
+        .button {
+            padding: 10px 15px;
+            background-color: #605553;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .button:hover {
+            background-color: #332f2f;
+        }
+
+        .button-group {
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function checkSelection(value, elementId) {
+            var inputField = document.getElementById(elementId);
+            inputField.style.display = (value === 'other' || value === 'add my own') ? 'block' : 'none';
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <form action="/action_page.php">
+            <label for="university">Select a University:</label>
+            <select name="university" id="university" class="inputField" onchange="checkSelection(this.value, 'otherUniversity')">
+                <optgroup label="University">
+                    <option value="Western">Western</option>
+                    <option value="UofT">UofT</option>
+                    <option value="Guelph">Guelph</option>
+                </optgroup>
+                <option value="other">Other</option>
+            </select>
+            <input type="text" id="otherUniversity" name="otherUniversity" class="inputField hidden" placeholder="Enter your university name">
+
+            <label for="course">Select a Course:</label>
+            <select name="course" id="course" class="inputField" onchange="checkSelection(this.value, 'customCourse')">
+                <option value="course1">Course 1</option>
+                <option value="course2">Course 2</option>
+                <option value="add my own">Add my own</option>
+            </select>
+            <input type="text" id="customCourse" name="customCourse" class="inputField hidden" placeholder="Enter course name">
+
+            <div class="button-group">
+                <button type="submit" class="button">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

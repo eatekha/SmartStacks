@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Your Website Title</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #2b2a2a;
+            font-family: Arial, sans-serif;
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px; /* Adjust as per your requirement */
+        }
+
+        .inputField {
+            background-color: white;
+            color: black;
+        }
+
+        .btn-custom {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-custom:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container text-center">
+        <div class="logo mb-4">
+            <!-- Place your logo here -->
+            <img src="path/to/your/logo.png" alt="Logo" class="img-fluid">
+        </div>
+        <input type="text" placeholder="Username" class="form-control inputField mb-3">
+        <input type="password" placeholder="Password" class="form-control inputField mb-3">
+        <div class="button-group">
+            <button class="btn btn-custom mb-2">Sign Up</button>
+            <button class="btn btn-custom mb-2">Login</button>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and its dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
