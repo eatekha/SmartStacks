@@ -23,12 +23,13 @@ template = """You are a professor for the course {course} at {university}. \
             The student will provide you with either the unit name, midterm prep, or final prep, and your job is to generate appropriate questions to help the student understand the topic better, as well as the best possible and most concise answer to that question. \
             Generate 10 such questions. The unit will be delimited by three backticks. ```{unit}```. \
              
-            Provide the output in JSON format. The two main keys are component, which hold the value "flashcard", and info, which holds the following info: unit_name, topic, question, answer."""
+            Provide the output in JSON format. The two main keys are component, which hold the value "flashcard", and info, which holds the following info: unit_name, topic, question, answer.
+            
+            
+            """
 
 prompt = PromptTemplate(template=template, input_variables=["course","university","unit"])
 llm_chain = LLMChain(prompt=prompt, llm=llm)
-
-
 
 course = "PHYS 1401"
 university = "University of Western Ontario"
