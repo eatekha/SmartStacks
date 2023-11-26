@@ -1,6 +1,6 @@
 # This is the API manager for the backend. It handles all the requests from the frontend and
 
-from flask import Flask, jsonify, request
+from flask import Flask, render_template, jsonify, request
 import psycopg2
 #Get password for .env
 import os
@@ -131,7 +131,7 @@ def llm(course, school, topic):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=3000)
 
 
 
