@@ -15,12 +15,18 @@ llm = OpenAI(openai_api_key=API_KEY, max_tokens=2000)
 
 
 def generate_questions(course, topic):
-    template = """You are a professor for the course {course}. \
+    template = """You are a professor for the {course}. \
                 You can answer any question with great detail and are able to generate questions for any topic within the course to best help the student prepare for assessments. \
                 The student will provide you with the course name and relevant topics related to the course, and your job is to generate appropriate questions to help the student understand the topic better, as well as the best possible and most concise answer to that question. \
-                Generate 10 such questions. The unit will be delimited by three backticks. ```{topic}```. \
+                Generate 10 such questions. The unit is delimited by three angled brackets. <<<{topic}>>. \
                 
-                Provide the output in JSON format. The main key is "topic". Topic holds an array of JSON objects, with the following keys: question and answer, which store the question and answer.
+                Provide the output as a list of tuples of questions and answers. An example of how the output should be formatted is delimited by three backticks. \
+                
+                ```
+                [[question1, answer1], [question2, answer2], [question3, answer3], [question4, answer4], [question5, answer5], [question6, answer6], [question7, answer7], [question8, answer8], [question9, answer9], [question10, answer10]]
+                ```
+
+                REMEMBER: The output should only incude the list - no other text or characters should be included.
                 """
 
     q_prompt = PromptTemplate(template=template, input_variables=["course", "topic"])
