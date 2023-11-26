@@ -6,4 +6,9 @@ from . import main
 @main.route('/home')
 @login_required
 def home():
-    return render_template('home.html')
+    cards_data = [
+        {
+            'title': '',
+            'image': ''},
+    ]
+    return render_template('home.html', cards=cards_data)

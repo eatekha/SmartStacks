@@ -19,50 +19,33 @@
         border-color: #8ba691; /* Custom color for navbar toggler */
     }
 
-    .btn-outline-custom {
-        border-color: #8ba691; /* Custom border color for button */
-    }
-
-    .btn-outline-custom:hover {
-        color: #080b12; /* Change text color on hover */
-        background-color: #8ba691; /* Change background color on hover */
-        border-color: #8ba691; /* Ensure border color matches */
-        transition: all 0.3s ease; /* Smooth transition for all changes */
-    }
-
-    .icon-custom-color {
-        color: #8ba691; /* Custom icon color */
-    }
 </style>
-
-<nav class="navbar navbar-expand-md py-3" style="background-color: #080b12;">
-    <div class="container-fluid">
-        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item active">
-                    <a class="nav-link navbar-custom-link" href="#">Courses <i
-                            class="bi bi-journal-bookmark-fill icon-custom-color"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link navbar-custom-link" href="#">Notes <i
-                            class="bi bi-pencil-square icon-custom-color"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link navbar-custom-link" href="#">Help <i
-                            class="bi bi-question-circle-fill icon-custom-color"></i></a>
-                </li>
-            </ul>
+<section class="bg-body-tertiary">
+    <nav class="navbar navbar-expand-md py-3 fixed-top bg-body-tertiary">
+        <div class="container-fluid">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link navbar-custom-link" href="#">Collections </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbar-custom-link" href="#">Create New Collection </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbar-custom-link" href="#">About</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mx-auto order-0">
+                <a class="navbar-brand navbar-brand-custom mx-auto" href="/home">BrainBuddy</a>
+                <button class="navbar-toggler navbar-toggler-custom" type="button" data-bs-toggle="collapse"
+                        data-bs-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <a class="ms-auto btn " href="/logout" type="button">Logout</a>
+            </div>
         </div>
-        <div class="mx-auto order-0">
-            <a class="navbar-brand navbar-brand-custom mx-auto" href="/home">BrainBuddy</a>
-            <button class="navbar-toggler navbar-toggler-custom" type="button" data-bs-toggle="collapse"
-                    data-bs-target=".dual-collapse2">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <a class="ms-auto btn btn-outline-light btn-outline-custom" href="{{ url_for('auth.login') }}"
-               type="button">Logout</a>
-        </div>
-    </div>
-</nav>
+    </nav>
+</section>

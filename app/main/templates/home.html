@@ -2,12 +2,26 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 {% include 'navbar.html' %}
-<div class="container mt-4">
-    <div class="row row-cols-2 g-5 ">
-        {% include 'card.html' %}
-        {% include 'card.html' %}
-        {% include 'card.html' %}
-        {% include 'card.html' %}
+
+<section class="py-5 text-center container ">
+    <div class="row py-lg-5 mt-5">
+        <div class="col-lg-6 col-md-8 mx-auto mt-5">
+            <h1 class="fw-light">Welcome to your dashboard!</h1>
+            <p class="lead text-body-secondary">Here you can make new flashcard collections and access previously
+                generated collections.</p>
+            <p>
+                <a href="#" class="btn btn-lg my-2">Make a new collection</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="album py-5 bg-body-tertiary flex-grow-1">
+    <div class="container">
+        <div class="row row-cols-3 g-3">
+            {% include 'card.html' %}
+        </div>
     </div>
 </div>
+{% include 'footer.html' %}
 {% endblock %}
