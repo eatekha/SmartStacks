@@ -23,12 +23,13 @@ Placeholder for How We Authenticate Users
 
 '''
 
-#Assume we have userToken
-userToken = "123456"
+#Assume we have password_hash
+
+password_hash = "123456"
 
 # User Pages -> User Courses
 
-def getUserCourses(userToken):
+def getUserCourses(password_hash):
     cur = conn.cursor()
     # Get User ID
     user_id = 1
@@ -40,13 +41,16 @@ def getUserCourses(userToken):
         courses.append(cur.fetchone()[0])
     return courses
 
-getUserCourses(userToken)
+getUserCourses(password_hash
+)
 
 
-def addUserCourse(userToken, courseID):
+def addUserCourse(password_hash
+, courseID):
     cur = conn.cursor()
     # Get User ID
-    cur.execute("SELECT user_id FROM usertable WHERE user_token = %s", (userToken,))
+    cur.execute("SELECT user_id FROM usertable WHERE user_token = %s", (password_hash
+,))
     userID = cur.fetchone()[0]
     # Add User's Course
     cur.execute("INSERT INTO usercourses (user_id, course_id) VALUES (%s, %s)", (userID, courseID))

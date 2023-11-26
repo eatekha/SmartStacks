@@ -1,5 +1,14 @@
 # This is the API manager for the backend. It handles all the requests from the frontend and
 
+
+
+
+# TODO - Add authentication to the endpoints
+# TODO - Add error handling to the endpoints
+# TODO -a wAY TO ADD FLASHCARDS TO THE DATABASE
+# TODO - ADD A WAY TO RETRIEVE PAST Q'A;S 
+
+
 from flask import Flask, jsonify, request
 import psycopg2
 #Get password for .env
@@ -27,8 +36,8 @@ def connect_to_database():
 conn = connect_to_database()
 cur = conn.cursor()
 
-username = "Eseosa"
-user_id = "1"
+username = "admin"
+user_id = "2"
 
 '''
 This file manages all the endpoints for the backend
@@ -47,7 +56,7 @@ adding pdf/syllabus is confusing rn
 '''
 
 
-#Add a course to the database
+#Add a course to the database and personal sector
 @app.route('/courses/addCourse', methods=['POST'])
 def addCourse():
         try:
@@ -62,6 +71,7 @@ def addCourse():
         except:
             # Return error
             return jsonify("Course Not Added, Problem With Server"), 401
+
 
 
 
@@ -85,8 +95,10 @@ def getCourses():
         # Return error
         return jsonify("Courses Not Retrieved, Problem With Server"), 401
 
-@app.route('/users/getFlashCards', methods=['GET'])
-def llm(course, school, topic):
+
+
+@app.route('/users/getFlashCards', methods=['POST'])
+def llm():
         from langchain.chains import LLMChain
         from langchain.llms import OpenAI
         from langchain.prompts import PromptTemplate
@@ -95,6 +107,11 @@ def llm(course, school, topic):
         import streamlit as st
 
         load_dotenv()
+
+        data = request.json  # Assuming the data is sent as JSON
+        course = data.get('course')
+        school = data.get('school')
+        topic = data.get('topic')
 
 
         API_KEY = os.getenv('OPENAI_API_KEY')
@@ -116,12 +133,14 @@ def llm(course, school, topic):
         prompt = PromptTemplate(template=template, input_variables=["course","school","topic"])
         llm_chain = LLMChain(prompt=prompt, llm=llm)
 
+        '''
         course = "PHYS 1401"
         school = "University of Western Ontario"
         topic = "circular motion" # user input 
-
-
+        '''
+        import json
         response = llm_chain.run({'course': course, 'school': school, 'topic': topic})
+
 
         return jsonify(response), 200
 
@@ -129,9 +148,13 @@ def llm(course, school, topic):
 
 
 
+def addToHistory(flashcards):
+     pass
+
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=3000)
 
 
 

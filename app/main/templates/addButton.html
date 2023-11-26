@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Add any head elements here, like CSS links -->
+    <style>
+        /* Style for the modal overlay */
+        #modalOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            z-index: 2; /* Ensure it's above other elements */
+        }
+
+        /* Card style for the form */
+        .card {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 2rem;
+            width: 18rem;
+        }
+
+        /* Blurred background style */
+        .blur-background {
+            filter: blur(5px);
+        }
+
+        /* Ensuring that the form itself is not blurred */
+        #courseForm {
+            position: relative;
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main content of the page -->
+    <div class="container" id="mainContent">
+        <!-- Add Course Card -->
+        <div class="col">
+            <a href="#" id="addCourseButton" style="text-decoration: none;">
+                <div class="card" style="width: 18rem; background-color: #333; color: white; text-align: center; border: none;">
+                    <div style="font-size: 6em; padding-top: 2rem;">+</div>
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-size: 2em; margin-top: 2rem;">Add Course</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div id="modalOverlay">
+        <!-- Hidden Form for Adding Course -->
+        <div class="card" id="courseForm">
+            <form>
+                <div class="mb-3">
+                    <label for="courseName" class="form-label">Course Name:</label>
+                    <input type="text" class="form-control" id="courseName" style="background-color: #444; color: white;">
+                </div>
+                <div class="mb-3">
+                    <label for="university" class="form-label">University:</label>
+                    <input type="text" class="form-control" id="university" style="background-color: #444; color: white;">
+                </div>
+                <div class="mb-3">
+                    <label for="topic" class="form-label">Topic:</label>
+                    <input type="text" class="form-control" id="topic" style="background-color: #444; color: white;">
+                </div>
+                <button type="button" class="btn" onclick="submitCourse()" style="background-color: #555; color: white; width: 100%;">Add</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Previous JavaScript code for modal handling
+    
+        function submitCourse() {
+            const courseName = document.getElementById("courseName").value;
+            const university = document.getElementById("university").value;
+            const topic = document.getElementById("topic").value;
+    
+            // Prepare the data to be sent
+            const courseData = {
+                coursename: courseName,
+                university: university,
+                topic: topic
+            };
+    
+            // Make the API call
+            fetch('/courses/addCourse', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(courseData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Handle the response data
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    
+            // Optionally close the modal and clear the form
+            modalOverlay.style.display = "none";
+            mainContent.classList.remove("blur-background");
+            document.getElementById("addCourseForm").reset();
+        }
+    </script>
+    
+    <script>
+        const addButton = document.getElementById("addCourseButton");
+        const modalOverlay = document.getElementById("modalOverlay");
+        const mainContent = document.getElementById("mainContent");
+
+        addButton.addEventListener("click", function(event){
+            event.preventDefault();
+            modalOverlay.style.display = "flex"; // Display the modal
+            mainContent.classList.add("blur-background"); // Blur the background
+        });
+
+        modalOverlay.addEventListener("click", function(event) {
+            // Close modal if the overlay (but not the form) is clicked
+            if (event.target === modalOverlay) {
+                modalOverlay.style.display = "none";
+                mainContent.classList.remove("blur-background");
+            }
+        });
+    </script>
+</body>
+</html>
