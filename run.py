@@ -5,5 +5,4 @@ if __name__ == "__main__":
     from app.models import User
 
     User.add_user('admin', 'admin')
-
     app.run(debug=True)
