@@ -126,6 +126,17 @@ def llm(course, school, topic):
         return jsonify(response), 200
 
 
+@app.route('/users/addFlashCards', methods=['POST'])
+def add_flashcards():
+    data = request.json
+    for flashcard in data['info']:
+        flashcard_unit = flashcard['unit_name']
+        flashcard_topic = flashcard['topic']
+        flashcard_question = flashcard['question']
+        flashcard_answer = flashcard['answer']
+
+        cur.execute("INSERT INTO flashcards (flashcard_unit, flashcard_topic, flashcard_question, flashcard_answer) VALUES (%s, %s, %s, %s)", (flashcard_unit, flashcard_topic, flashcard_question, flashcard_answer))
+        conn.commit()
 
 
 

@@ -37,10 +37,10 @@ def generate_questions(course, school, topic):
         response = q_llm_chain.run({'course': course, 'school': school, 'topic': topic})
         print(response)
 
-        response = json.dumps(response)
-        with open('output.json', 'w') as f:
+        response = json.dumps(response, ensure_ascii=False)
+        with open('output.json', 'w', encoding='utf8') as f:
                 json.dump(response, f)
-        return response
+
 
 
 final_res = generate_questions("PHYS 1401", "University of Western Ontario", "circular motion")
@@ -65,4 +65,4 @@ def check_answers(response):
         return response
 
 
-print(check_answers(final_res))
+print(generate_questions(final_res))
