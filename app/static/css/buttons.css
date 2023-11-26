@@ -1,0 +1,24 @@
+.btn {
+    background-color: orange;
+    border-color: orange;
+    color: black;
+}
+
+.btn:hover {
+    background-color: #ec6b12;
+    border-color: #ec6b12;
+    color: black;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-xl {
+    padding: 1rem 1.75rem;
+    font-size: 1.5rem;
+    border-radius: 0.3rem;
+    font-weight: 700;
+    line-height: 1.5;
+    background-color: var(--secondary-light);
+    border-color: var(--secondary-light);
+    color: var(--primary-medium);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
