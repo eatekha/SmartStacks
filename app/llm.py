@@ -16,7 +16,7 @@ API_KEY = os.getenv('OPENAI_API_KEY')
 
 os.environ['OPENAI_API_KEY'] = API_KEY
 
-llm = OpenAI(openai_api_key=API_KEY, max_tokens=1000)
+llm = OpenAI(openai_api_key=API_KEY, max_tokens=1000, )
 
 template = """You are a professor for the course {course} at {university}. \
             You can answer any qustion with great detail and are able to generate questions for any topic within the course to best help the student prepare for assessments. \
@@ -33,10 +33,9 @@ llm_chain = LLMChain(prompt=prompt, llm=llm)
 
 course = "PHYS 1401"
 university = "University of Western Ontario"
-unit = "circular motion"
+unit = "circular motion" # user input 
+
 
 response = llm_chain.run({'course': course, 'university': university, 'unit': unit})
 
-print(response.encode('utf-8').decode('unicode-escape').json()) 
-
-# this is a fake change
+print(response)
