@@ -22,3 +22,7 @@ app.register_blueprint(main_blueprint)
 from app.auth import auth as auth_blueprint
 
 app.register_blueprint(auth_blueprint)
+
+from app.flashcards import flashcards
+
+app.register_blueprint(flashcards)
