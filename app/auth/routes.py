@@ -14,6 +14,7 @@ def login():
         user = User.get_user(form.username.data)
         if user and user.check_password(form.password.data):
             login_user(user)
+            print(form.username.data, form.password.data)
             return redirect(url_for('main.home'))
         flash('Invalid username or password')
     return render_template('login.html', form=form)
