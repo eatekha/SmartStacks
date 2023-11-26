@@ -3,18 +3,14 @@
 import psycopg2
 import sys
 import pprint
-# Get password for .env
+#Get password for .env
 import os
 from dotenv import load_dotenv
-
 load_dotenv()
-
 
 def connect_to_database():
     try:
-        conn = psycopg2.connect("dbname='postgres' user='postgres' host='{}' password='{}'".format(os.getenv("DB_HOST"),
-                                                                                                   os.getenv(
-                                                                                                       "DB_PASSWORD")))
+        conn = psycopg2.connect("dbname='postgres' user='postgres' host='{}' password='{}'".format(os.getenv("DB_HOST"), os.getenv("DB_PASSWORD")))
     except:
         print("I am unable to connect to the database")
     return conn
@@ -27,9 +23,8 @@ Placeholder for How We Authenticate Users
 
 '''
 
-# Assume we have userToken
+#Assume we have userToken
 userToken = "123456"
-
 
 # User Pages -> User Courses
 
@@ -45,7 +40,6 @@ def getUserCourses(userToken):
         courses.append(cur.fetchone()[0])
     return courses
 
-
 getUserCourses(userToken)
 
 
@@ -58,3 +52,6 @@ def addUserCourse(userToken, courseID):
     cur.execute("INSERT INTO usercourses (user_id, course_id) VALUES (%s, %s)", (userID, courseID))
     conn.commit()
     return cur.fetchall()
+
+
+

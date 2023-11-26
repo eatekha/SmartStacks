@@ -20,6 +20,7 @@ def login():
     return render_template('login.html', form=form)
 
 
+#
 # @auth.route('/login', methods=['GET', 'POST'])
 # def register():
 #     if current_user.is_authenticated:
