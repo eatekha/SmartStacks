@@ -2,27 +2,32 @@
 
 from flask import Flask, jsonify, request
 import psycopg2
-#Get password for .env
+# Get password for .env
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 app = Flask(__name__)
 
-#1. Connect to Database
-#2. Check if user is authenticated
-#3. If authenticated, return data
-#4. If not authenticated, return 401
+
+# 1. Connect to Database
+# 2. Check if user is authenticated
+# 3. If authenticated, return data
+# 4. If not authenticated, return 401
 
 # Before we do anything, call these things need to be met
 def connect_to_database():
     try:
-        conn = psycopg2.connect("dbname='postgres' user='postgres' host='{}' password='{}'".format(os.getenv("DB_HOST"), os.getenv("DB_PASSWORD")))
+        conn = psycopg2.connect("dbname='postgres' user='postgres' host='{}' password='{}'".format(os.getenv("DB_HOST"),
+                                                                                                   os.getenv(
+                                                                                                       "DB_PASSWORD")))
         print("Connected to Database")
         return conn
     except:
         print("I am unable to connect to the database")
         return False
+
 
 conn = connect_to_database()
 cur = conn.cursor()
@@ -33,6 +38,8 @@ user_id = "1"
 '''
 This file manages all the endpoints for the backend
 '''
+
+
 @app.route('/')
 # Connect to database first, if this is possible then return 200, start calling functions, else return 401
 def index():
@@ -41,33 +48,34 @@ def index():
     else:
         return jsonify("I DON'T WORK"), 401
 
+
 '''
 ALL THESE ENDPOINTS ARE RELATED TO THE COURSES
 adding pdf/syllabus is confusing rn
 '''
 
 
-#Add a course to the database
+# Add a course to the database
 @app.route('/courses/addCourse', methods=['POST'])
 def addCourse():
-        try:
-            # Get coursename from request
-            coursename = request.json['coursename']
-            # Add course to database
-            cur.execute("INSERT INTO course (coursename) VALUES (%s)", (coursename,))
-            cur.execute("INSERT INTO usercourses (userid, courseid) VALUES (%s, %s)", (user_id, cur.lastrowid))
-            conn.commit()
-            # Return success
-            return jsonify("Course Added"), 200
-        except:
-            # Return error
-            return jsonify("Course Not Added, Problem With Server"), 401
-
+    try:
+        # Get coursename from request
+        coursename = request.json['coursename']
+        # Add course to database
+        cur.execute("INSERT INTO course (coursename) VALUES (%s)", (coursename,))
+        cur.execute("INSERT INTO usercourses (userid, courseid) VALUES (%s, %s)", (user_id, cur.lastrowid))
+        conn.commit()
+        # Return success
+        return jsonify("Course Added"), 200
+    except:
+        # Return error
+        return jsonify("Course Not Added, Problem With Server"), 401
 
 
 '''
 ALL THESE ENDPOINTS ARE RELATED TO THE USERS
 '''
+
 
 # Get all courses a user is registered in from the database
 @app.route('/users/retrieveEnrolled', methods=['GET'])
@@ -80,30 +88,30 @@ def getCourses():
             cur.execute("select coursename from course where courseid = {}".format(course[0]))
             courses.append(cur.fetchone()[0])
         return jsonify(courses), 200
-    
+
     except:
         # Return error
         return jsonify("Courses Not Retrieved, Problem With Server"), 401
 
+
 @app.route('/users/getFlashCards', methods=['GET'])
 def llm(course, school, topic):
-        from langchain.chains import LLMChain
-        from langchain.llms import OpenAI
-        from langchain.prompts import PromptTemplate
-        from dotenv import load_dotenv
-        import os
-        import streamlit as st
+    from langchain.chains import LLMChain
+    from langchain.llms import OpenAI
+    from langchain.prompts import PromptTemplate
+    from dotenv import load_dotenv
+    import os
+    import streamlit as st
 
-        load_dotenv()
+    load_dotenv()
 
+    API_KEY = os.getenv('OPENAI_API_KEY')
 
-        API_KEY = os.getenv('OPENAI_API_KEY')
+    os.environ['OPENAI_API_KEY'] = API_KEY
 
-        os.environ['OPENAI_API_KEY'] = API_KEY
+    llm = OpenAI(openai_api_key=API_KEY, max_tokens=1000)
 
-        llm = OpenAI(openai_api_key=API_KEY, max_tokens=1000)
-
-        template = """You are a professor for the course {course} at {school}. \
+    template = """You are a professor for the course {course} at {school}. \
                 You can answer any qustion with great detail and are able to generate questions for any topic within the course to best help the student prepare for assessments. \
                 The student will provide you with either the unit name, midterm prep, or final prep, and your job is to generate appropriate questions to help the student understand the topic better, as well as the best possible and most concise answer to that question. \
                 Generate 10 such questions. The unit will be delimited by three backticks. ```{topic}```. \
@@ -113,25 +121,17 @@ def llm(course, school, topic):
                 
                 """
 
-        prompt = PromptTemplate(template=template, input_variables=["course","school","topic"])
-        llm_chain = LLMChain(prompt=prompt, llm=llm)
+    prompt = PromptTemplate(template=template, input_variables=["course", "school", "topic"])
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
 
-        course = "PHYS 1401"
-        school = "University of Western Ontario"
-        topic = "circular motion" # user input 
+    course = "PHYS 1401"
+    school = "University of Western Ontario"
+    topic = "circular motion"  # user input
 
+    response = llm_chain.run({'course': course, 'school': school, 'topic': topic})
 
-        response = llm_chain.run({'course': course, 'school': school, 'topic': topic})
-
-        return jsonify(response), 200
-
-
-
-
+    return jsonify(response), 200
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
