@@ -9,7 +9,7 @@ def llm(course, school, topic):
         from langchain.prompts import PromptTemplate
         from dotenv import load_dotenv
         import os
-        import streamlit as st
+        import json
 
         load_dotenv()
 
@@ -18,7 +18,7 @@ def llm(course, school, topic):
 
         os.environ['OPENAI_API_KEY'] = API_KEY
 
-        llm = OpenAI(openai_api_key=API_KEY, max_tokens=1000)
+        llm = OpenAI(openai_api_key=API_KEY, max_tokens=2000)
 
         template = """You are a professor for the course {course} at {school}. \
                 You can answer any qustion with great detail and are able to generate questions for any topic within the course to best help the student prepare for assessments. \
@@ -39,9 +39,13 @@ def llm(course, school, topic):
 
 
         response = llm_chain.run({'course': course, 'school': school, 'topic': topic})
-
         print(response)
+
+        response = json.dumps(response)
+        with open('output.json', 'w') as f:
+                json.dump(response, f)
         return response
+
 
 
 llm("PHYS 1401", "University of Western Ontario", "circular motion")
