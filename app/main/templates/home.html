@@ -3,9 +3,116 @@
 {% block content %}
 {% include 'navbar.html' %}
 
-<div class="container mt-4">
-    <h1>Welcome to the Home Page</h1>
-    <p>This is the content of your home page.</p>
-</div>
-</body>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #2b2a2a, #3a3939); /* Gradient Background */
+            font-family: 'Roboto', sans-serif;
+            color: white;
+        }
+
+        /* Custom Navbar Styling */
+        .custom-navbar {
+            background-color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-navbar a {
+            color: white;
+            padding: 5px 15px;
+        }
+
+        .custom-navbar a:hover {
+            background-color: #605553;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        /* Course Cards Styling */
+        .course-card {
+            background-color: #444;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .course-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .add-course {
+            display: inline-block;
+            background-color: #605553;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            text-align: center;
+            width: 100%;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .add-course:hover {
+            background-color: #332f2f;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design Adjustments */
+        @media (max-width: 768px) {
+            .course-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+  
+
+    <!-- Course Container -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card course-card">
+                    <div class="card-body">
+                        <h5 class="card-title">NMM 1411A</h5>
+                        <p class="card-text">Course Description Here</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card course-card">
+                    <div class="card-body">
+                        <h5 class="card-title">NMM 1412A</h5>
+                        <p class="card-text">Course Description Here</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="addcourse.html" class="add-course">
+                    <span>Add Course</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+   
+
 {% endblock %}
