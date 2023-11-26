@@ -28,13 +28,10 @@ template = """You are a professor for the course {course} at {university}. \
 prompt = PromptTemplate(template=template, input_variables=["course","university","unit"])
 llm_chain = LLMChain(prompt=prompt, llm=llm)
 
-
-
 course = "PHYS 1401"
 university = "University of Western Ontario"
-unit = "circular motion" # user input 
-
+unit = "circular motion"
 
 response = llm_chain.run({'course': course, 'university': university, 'unit': unit})
 
-print(response)
+print(response.encode('utf-8').decode('unicode-escape').json()) 

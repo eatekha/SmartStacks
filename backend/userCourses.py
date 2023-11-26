@@ -31,14 +31,14 @@ userToken = "123456"
 def getUserCourses(userToken):
     cur = conn.cursor()
     # Get User ID
-    cur.execute("SELECT user_id FROM usertable WHERE user_token = %s", (userToken,))
-    print(cur.fetchone()[0])
-
-
-    # Get User's Courses
-    cur.execute("SELECT course_id FROM usercourses WHERE user_id = %s", (cur.fetchall()[0],))
-    print(cur.fetchall())
-    return cur.fetchall()
+    user_id = 1
+    courses = []
+    # Return courses
+    cur.execute("SELECT courseid FROM usercourses WHERE user_id = %s", (user_id,))
+    for course in cur.fetchall():
+        cur.execute("select coursename from course where courseid = {}".format(course[0]))
+        courses.append(cur.fetchone()[0])
+    return courses
 
 getUserCourses(userToken)
 
@@ -52,3 +52,6 @@ def addUserCourse(userToken, courseID):
     cur.execute("INSERT INTO usercourses (user_id, course_id) VALUES (%s, %s)", (userID, courseID))
     conn.commit()
     return cur.fetchall()
+
+
+
