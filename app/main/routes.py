@@ -1,32 +1,11 @@
-from flask import render_template
+import json
+from flask import render_template, redirect, url_for
 from flask_login import login_required
-from . import main
-import requests
+from . import main, llm
+from .forms import NewCollectionForm
 
 
-# Fetch this Route @app.route('/users/retrieveEnrolled', methods=['GET'])
-def getCourses():
-
-    # Define the API endpoint URL
-    api_url = 'http://127.0.0.1:3000/users/retrieveEnrolled'  # Replace with the actual API endpoint URL
-
-    try:
-        # Make a GET request to the API
-        response = requests.get(api_url)
-        print(response)
-
-        # Check if the request was successful (status code 200)
-        if response.status_code == 200:
-            # Parse the response JSON data
-            data = response.json()
-            return data
-        else:
-            print(f"Failed to fetch data. Status code: {response.status_code}")
-    except requests.exceptions.RequestException as e:
-        print(f"Request failed: {e}")
-
-
-@main.route('/home')
+@main.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
     cards_data = [
@@ -34,9 +13,19 @@ def home():
             'title': '',
             'image': ''},
     ]
+    form = NewCollectionForm()
+    if form.validate_on_submit():
+        response = llm.generate_questions(form.collection_course.data, form.collection_description.data)
+        print(response)
+        data = json.loads(response)
 
-        # Your dynamic data
-    data_array = getCourses()
+        # Step 2: Organize and Display the Data
+        for flashcard in data['info']:
+            print(f"Unit Name: {flashcard['unit_name']}")
+            print(f"Topic: {flashcard['topic']}")
+            print(f"Question: {flashcard['question']}")
+            print(f"Answer: {flashcard['answer'].encode('utf-8')}")
 
-    # Pass the dynamic data as a variable to the template
-    return render_template('home.html', cards=cards_data, card_titles=data_array)
+            print("\n")  # Adds a newline for better readability between flashcards
+        return redirect(url_for('flashcards.carousel'))
+    return render_template('home.html', cards=cards_data, form=form)
