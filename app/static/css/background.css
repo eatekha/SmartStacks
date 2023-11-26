@@ -1,44 +1,20 @@
 /* Global Variables and Color Palette */
 :root {
-  --primary-dark: #a646bc;        /* Dark Purple */
-  --primary-medium: #c962d2;      /* Medium Purple */
-  --primary-light: #cb82e6;       /* Light Purple */
-  --secondary-dark: #c398ec;      /* Deep Purple */
-  --secondary-light: #baadf4;     /* Slate Purple */
-  --accent-pink: #ff6b6b;         /* Pink */
-  --accent-blue: #4287f5;         /* Pinkish-Blue */
+    --primary-dark: #a646bc; /* Dark Purple */
+    --primary-medium: #c962d2; /* Medium Purple */
+    --primary-light: #cb82e6; /* Light Purple */
+    --secondary-dark: #c398ec; /* Deep Purple */
+    --secondary-light: #baadf4; /* Slate Purple */
+    --accent-pink: #ff6b6b; /* Pink */
+    --accent-blue: #4287f5; /* Pinkish-Blue */
 }
 
 /* Body Styles */
 body {
-  /* Background Image */
-  background-image: url('hack-western-10/app/static/images/wave.gif');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  /* Background Gradient Overlay */
-  background: linear-gradient(to right, var(--primary-dark), var(--secondary-dark)),
-              url('hack-western-10/app/static/images/wave.gif');
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-:root {
-    /* Refined Color Palette */
-    --primary-dark: #080b12;   /* Dark Navy */
-    --primary-medium: #5d807f; /* Medium Blue */
-    --primary-light: #8ba691;  /* Light Blue */
-    --secondary-dark: #0c132e; /* Deep Blue */
-    --secondary-light: #273c50; /* Slate Blue */
-    --firefly-color: #f1c40f; /* Firefly (Yellow) */
-    --firefly-size: 5px; /* Size of the fireflies */
-    --firefly-amount: 20; /* Total number of fireflies */
-}
-
-body {
-    /* Unified Background Gradient */
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #6e8efb, #a777e3);
 }
 
