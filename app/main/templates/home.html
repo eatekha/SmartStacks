@@ -19,7 +19,9 @@
 <div class="album py-5 bg-body-tertiary flex-grow-1">
     <div class="container">
         <div class="row row-cols-3 g-3">
+            {% for card_title in card_titles %}
             {% include 'card.html' %}
+            {% endfor %}
         </div>
     </div>
 </div>
