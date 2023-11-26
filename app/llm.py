@@ -16,7 +16,7 @@ API_KEY = os.getenv('OPENAI_API_KEY')
 
 os.environ['OPENAI_API_KEY'] = API_KEY
 
-llm = OpenAI(openai_api_key=API_KEY, max_tokens=1000, )
+llm = OpenAI(openai_api_key=API_KEY, max_tokens=1000)
 
 template = """You are a professor for the course {course} at {university}. \
             You can answer any qustion with great detail and are able to generate questions for any topic within the course to best help the student prepare for assessments. \
@@ -39,3 +39,12 @@ unit = "circular motion" # user input
 response = llm_chain.run({'course': course, 'university': university, 'unit': unit})
 
 print(response)
+
+import json
+
+# Convert the response to JSON
+response_json = json.dumps(response)
+
+# Write the JSON string to a file
+with open('response.json', 'w') as f:
+    f.write(response_json)
