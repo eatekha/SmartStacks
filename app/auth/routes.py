@@ -5,11 +5,7 @@ from app.models import User
 from . import auth
 
 
-@auth.route('/')
-def landing_page():
-    return render_template('landing.html')
-
-@auth.route('/login', methods=['GET', 'POST'])
+@auth.route('/', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
@@ -24,8 +20,27 @@ def login():
     return render_template('login.html', form=form)
 
 
+#
+# @auth.route('/login', methods=['GET', 'POST'])
+# def register():
+#     if current_user.is_authenticated:
+#         return redirect(url_for('main.home'))
+#     form = LoginForm()
+#     if form.validate_on_submit():
+#         user = User.get_user(form.username.data)
+#         if user:
+#             flash('Username already exists')
+#         else:
+#             user = User(username=form.username.data)
+#             user.set_password(form.password.data)
+#             user.save()
+#             login_user(user)
+#             return redirect(url_for('main.home'))
+#     return render_template('login.html', form=form)
+
+
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.home'))
+    return redirect(url_for('auth.login'))

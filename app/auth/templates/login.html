@@ -1,44 +1,79 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Home{% endblock %}
 {% block content %}
-<body>
-<div class="container">
-    <div class="row justify-content-center align-items-center" style="height: 100vh;">
-        <div class="col-md-6 col-lg-4">
-            <div class="card" style="background-color: var(--darkgrey);">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Login</h5>
-                    <form method="post" action="{{ url_for('auth.login') }}">
-                        {{ form.hidden_tag() }}
-                        <div class="form-floating mb-3">
-                            {{ form.username(class="form-control", id="floatingInput", placeholder="Username") }}
-                            {{ form.username.label(class="form-label", for="floatingInput") }}
-                            {% if form.username.errors %}
-                            <div class="alert alert-danger" role="alert">
-                                {{ form.username.errors[0] }}
-                            </div>
-                            {% endif %}
+<style>
+    .login {
+        min-height: 100vh;
+    }
+
+    .login-heading {
+        font-weight: 300;
+    }
+
+    .btn-login {
+        font-size: 0.9rem;
+        letter-spacing: 0.05rem;
+        padding: 0.75rem 1rem;
+    }
+</style>
+<div class="container-fluid ps-md-0">
+    <div class="row g-0">
+        <div class="d-none d-md-flex col-md-4 col-lg-6">
+            <img src="{{ url_for('static', filename='images/campfire2.gif') }}" alt="Comfy Login Campfire"
+                 style="object-fit: cover">
+        </div>
+        <div class="col-md-8 col-lg-6">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-8 mx-auto">
+                            <h3 class="login-heading mb-4">Welcome back!</h3>
+
+                            <form method="post" action="{{ url_for('auth.login') }}">
+                                {{ form.hidden_tag() }}
+                                <div class="form-floating mb-3">
+                                    {{ form.username(class="form-control", id="floatingInput", placeholder="Username")
+                                    }}
+                                    {{ form.username.label(class="form-label", for="floatingInput") }}
+                                    {% if form.username.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form.username.errors[0] }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-floating mb-3">
+                                    {{ form.password(class="form-control", id="floatingPassword",
+                                    placeholder="Password") }}
+                                    {{ form.password.label(class="form-label", for="floatingPassword") }}
+                                    {% if form.password.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form.password.errors[0] }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form.remember(class="form-check-input", id="rememberMe") }}
+                                    {{ form.remember.label(class="form-check-label", for="rememberMe") }}
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit"
+                                            class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2">{{
+                                        form.submit.label.text }}
+                                    </button>
+                                    <div class="text-center">
+                                        <a class="small" href="#">Forgot password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small">Need an account? Sign
+                                            up!</a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-floating mb-3">
-                            {{ form.password(class="form-control", id="floatingPassword", placeholder="Password") }}
-                            {{ form.password.label(class="form-label", for="floatingPassword") }}
-                            {% if form.password.errors %}
-                            <div class="alert alert-danger" role="alert">
-                                {{ form.password.errors[0] }}
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="mb-3">
-                            {{ form.remember(class="form-check-input", id="rememberMe") }}
-                            {{ form.remember.label(class="form-check-label", for="rememberMe") }}
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">{{ form.submit.label.text }}</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</body>
-
 {% endblock %}

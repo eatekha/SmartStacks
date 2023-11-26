@@ -1,41 +1,41 @@
+<style>
+    /* Custom Styles */
+    .navbar-custom-link {
+        color: #5d807f; /* Default link color */
+    }
+
+    .navbar-custom-link:hover, .navbar-custom-link:focus {
+        color: #B1D0E0; /* Lighter shade for hover */
+        transition: color 0.3s ease-in-out; /* Smooth transition for hover effect */
+    }
+
+    .navbar-brand-custom {
+        color: #FFFFFF; /* Brand color */
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+
+    .navbar-toggler-custom {
+        border-color: #8ba691; /* Custom color for navbar toggler */
+    }
+
+    .btn-outline-custom {
+        border-color: #8ba691; /* Custom border color for button */
+    }
+
+    .btn-outline-custom:hover {
+        color: #080b12; /* Change text color on hover */
+        background-color: #8ba691; /* Change background color on hover */
+        border-color: #8ba691; /* Ensure border color matches */
+        transition: all 0.3s ease; /* Smooth transition for all changes */
+    }
+
+    .icon-custom-color {
+        color: #8ba691; /* Custom icon color */
+    }
+</style>
+
 <nav class="navbar navbar-expand-md py-3" style="background-color: #080b12;">
-    <style>
-        /* Custom Styles */
-        .navbar-custom-link {
-            color: #5d807f; /* Default link color */
-        }
-
-        .navbar-custom-link:hover, .navbar-custom-link:focus {
-            color: #B1D0E0; /* Lighter shade for hover */
-            transition: color 0.3s ease-in-out; /* Smooth transition for hover effect */
-        }
-
-        .navbar-brand-custom {
-            color: #FFFFFF; /* Brand color */
-            font-weight: bold;
-            font-size: 1.5em;
-        }
-
-        .navbar-toggler-custom {
-            border-color: #8ba691; /* Custom color for navbar toggler */
-        }
-
-        .btn-outline-custom {
-            border-color: #8ba691; /* Custom border color for button */
-        }
-
-        .btn-outline-custom:hover {
-            color: #080b12; /* Change text color on hover */
-            background-color: #8ba691; /* Change background color on hover */
-            border-color: #8ba691; /* Ensure border color matches */
-            transition: all 0.3s ease; /* Smooth transition for all changes */
-        }
-
-        .icon-custom-color {
-            color: #8ba691; /* Custom icon color */
-        }
-    </style>
-
     <div class="container-fluid">
         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
             <ul class="navbar-nav me-auto">
@@ -61,8 +61,8 @@
             </button>
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <a class="ms-auto btn btn-outline-light btn-outline-custom" href="/logout" type="button">Logout <i
-                    class="bi bi-box-arrow-right icon-custom-color"></i></a>
+            <a class="ms-auto btn btn-outline-light btn-outline-custom" href="{{ url_for('auth.login') }}"
+               type="button">Logout</a>
         </div>
     </div>
 </nav>
