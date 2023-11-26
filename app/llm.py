@@ -1,24 +1,20 @@
-# Initial prompt would tell the model that it is a professor for the course it's given and it cna asnwer and generate any questions related to the course
-# OPTIONAL: Have a separate prompt to deciper the topic of the question and input that as the description for the model (ex. You are a {physics, math, etc.} expert.)
-        # This would scan the entire syllabus doc and find the subject based on the content
+from langchain.chains import LLMChain
+from langchain.llms import OpenAI
+from langchain.prompts import PromptTemplate
+from dotenv import load_dotenv
+import os
+import json
+
+load_dotenv()
 
 
-def llm(course, school, topic):
-        from langchain.chains import LLMChain
-        from langchain.llms import OpenAI
-        from langchain.prompts import PromptTemplate
-        from dotenv import load_dotenv
-        import os
-        import json
+API_KEY = os.getenv('OPENAI_API_KEY')
 
-        load_dotenv()
+os.environ['OPENAI_API_KEY'] = API_KEY
 
+llm = OpenAI(openai_api_key=API_KEY, max_tokens=2000)
 
-        API_KEY = os.getenv('OPENAI_API_KEY')
-
-        os.environ['OPENAI_API_KEY'] = API_KEY
-
-        llm = OpenAI(openai_api_key=API_KEY, max_tokens=2000)
+def generate_questions(course, school, topic):
 
         template = """You are a professor for the course {course} at {school}. \
                 You can answer any qustion with great detail and are able to generate questions for any topic within the course to best help the student prepare for assessments. \
@@ -30,15 +26,15 @@ def llm(course, school, topic):
                 
                 """
 
-        prompt = PromptTemplate(template=template, input_variables=["course","school","topic"])
-        llm_chain = LLMChain(prompt=prompt, llm=llm)
+        q_prompt = PromptTemplate(template=template, input_variables=["course","school","topic"])
+        q_llm_chain = LLMChain(prompt=q_prompt, llm=llm)
 
         course = "PHYS 1401"
         school = "University of Western Ontario"
         topic = "circular motion" # user input 
 
 
-        response = llm_chain.run({'course': course, 'school': school, 'topic': topic})
+        response = q_llm_chain.run({'course': course, 'school': school, 'topic': topic})
         print(response)
 
         response = json.dumps(response)
@@ -47,5 +43,26 @@ def llm(course, school, topic):
         return response
 
 
+final_res = generate_questions("PHYS 1401", "University of Western Ontario", "circular motion")
 
-llm("PHYS 1401", "University of Western Ontario", "circular motion")
+def check_answers(response):  
+        user_answer = input("Enter your answer: ")
+        template = """You are a smart professor with the following information: {response}. \
+        The student will provide you with their answer for a question, which is delimited by three angled brackets. \
+        Your job is to check if the user's answer is similar to the answer you were given or not. \
+        Check for both exact values and synonyms. Use your professional judgement as a professor and check thorouoghlt whether the answer is mostly right or not. \
+        If the answer is wrong, provide the correct answer, as well as an elaborate description, explaining why it's wrong. If the answer is right, provide a short description of why the answer is right \ 
+        ```{user_answer}```. <<<What is the power rule?>>> 
+        
+        
+        """
+        # we can get the question by taking the text of the parent element of the answer component in the flashcard
+        a_prompt = PromptTemplate(template=template, input_variables=["response","user_answer"])
+        a_llm_chain = LLMChain(prompt=a_prompt, llm=llm)
+
+        response = a_llm_chain.run({'user_answer': user_answer, 'response': final_res})
+
+        return response
+
+
+print(check_answers(final_res))
