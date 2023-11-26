@@ -20,7 +20,7 @@ def generate_questions(course, topic):
                 The student will provide you with the course name and relevant topics related to the course, and your job is to generate appropriate questions to help the student understand the topic better, as well as the best possible and most concise answer to that question. \
                 Generate 10 such questions. The unit will be delimited by three backticks. ```{topic}```. \
                 
-                Provide the output in JSON format. The two main keys are component, which hold the value "flashcard", and info, which holds the following info: unit_name, topic, question, answer.
+                Provide the output in JSON format. The main key is "topic". Topic holds an array of JSON objects, with the following keys: question and answer, which store the question and answer.
                 """
 
     q_prompt = PromptTemplate(template=template, input_variables=["course", "topic"])
@@ -51,3 +51,5 @@ def generate_questions(course, topic):
 #
 #
 # print(check_answers(final_res))
+
+print(generate_questions("Calculus", "Derivatives"))
