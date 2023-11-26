@@ -36,6 +36,9 @@ class User(UserMixin):
         cls.users[username] = user
         return True
 
+    def check_user(username):
+        return username
+    
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -44,8 +47,7 @@ class User(UserMixin):
 
     @classmethod
     def get_user(cls, username):
-        #return cls.users.get(username)
-        return "Yes"
+        return User(username)
 
     @classmethod
     def user_loader(cls, user_id):
