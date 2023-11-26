@@ -39,12 +39,3 @@ unit = "circular motion" # user input
 response = llm_chain.run({'course': course, 'university': university, 'unit': unit})
 
 print(response)
-
-import json
-
-# Convert the response to JSON
-response_json = json.dumps(response)
-
-# Write the JSON string to a file
-with open('response.json', 'w') as f:
-    f.write(response_json)
