@@ -18,10 +18,10 @@ os.environ['OPENAI_API_KEY'] = API_KEY
 
 llm = OpenAI(openai_api_key=API_KEY, max_tokens=1000)
 
-template = """You are a professor for the course {course} at {university}. \
+template = """You are a professor for the course {course} at {school}. \
             You can answer any qustion with great detail and are able to generate questions for any topic within the course to best help the student prepare for assessments. \
             The student will provide you with either the unit name, midterm prep, or final prep, and your job is to generate appropriate questions to help the student understand the topic better, as well as the best possible and most concise answer to that question. \
-            Generate 10 such questions. The unit will be delimited by three backticks. ```{unit}```. \
+            Generate 10 such questions. The unit will be delimited by three backticks. ```{topic}```. \
              
             Provide the output in JSON format. The two main keys are component, which hold the value "flashcard", and info, which holds the following info: unit_name, topic, question, answer.
             
@@ -32,10 +32,10 @@ prompt = PromptTemplate(template=template, input_variables=["course","university
 llm_chain = LLMChain(prompt=prompt, llm=llm)
 
 course = "PHYS 1401"
-university = "University of Western Ontario"
-unit = "circular motion" # user input 
+school = "University of Western Ontario"
+topic = "circular motion" # user input 
 
 
-response = llm_chain.run({'course': course, 'university': university, 'unit': unit})
+response = llm_chain.run({'course': course, 'school': school, 'topic': topic})
 
 print(response)
