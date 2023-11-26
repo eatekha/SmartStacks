@@ -3,7 +3,6 @@ from flask_login import login_required
 from . import main
 
 
-@main.route('/')
 @main.route('/home')
 def home():
     return render_template('home.html')

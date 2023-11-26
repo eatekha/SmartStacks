@@ -5,6 +5,10 @@ from app.models import User
 from . import auth
 
 
+@auth.route('/')
+def landing_page():
+    return render_template('landing.html')
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
