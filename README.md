@@ -1,6 +1,6 @@
 # SmartStacks - AI Flashcard Creator 🚀
 
-Welcome to the repository for our Hack Western 10 project - SmartStacks, a revolutionary tool designed to transform the way students manage their study materials.
+Welcome to SmartStacks, a revolutionary tool designed to transform the way students manage their study materials.
 
 ## 🌟 Inspiration
 SmartStacks emerged from the common challenges students face in handling extensive study material. Our vision was to create a tool that not only simplifies the creation of study aids but also elevates the process through the power of AI technology.
