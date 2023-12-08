@@ -37,6 +37,3 @@ Explore SmartStacks on [GitHub Repo](link_to_repo)
 
 ## 👥 Contributors
 - Eseosa Atekha
-- Surya Sure 
-- Samuel Catania
-- Arnov Bhatt
